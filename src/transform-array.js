@@ -48,7 +48,6 @@ function transform(arr) {
       }
     }
   }
-  console.log(result);
   return result;
 }
 
