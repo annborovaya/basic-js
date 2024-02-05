@@ -19,14 +19,68 @@ const { NotImplementedError } = require('../extensions/index.js');
  * reverseMachine.decrypt('AEIHQX SX DLLU!', 'alphonse') => '!NWAD TA KCATTA'
  * 
  */
+
+const ALPH = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const numALPH = {};
+for (let i = 0; i < ALPH.length; i++) {
+  numALPH[ALPH[i]] = i;
+}
+
 class VigenereCipheringMachine {
-  encrypt() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  constructor(value) {
+    this.isReverced = (value === false) ? this.isReverced = true : this.isReverced = false;
   }
-  decrypt() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  encrypt(message, key) {
+    if ([...arguments].includes(undefined) || arguments.length < 2) {
+      throw new Error ('Incorrect arguments!');
+    }
+    const maxLength = message.length;
+    const cipherMessage = [];
+    let j = 0;
+
+   for (let i = 0; i < maxLength; i++) {
+      const numOfMsgLetter = numALPH[message[i].toUpperCase()];
+      const numOfKeyLetter = numALPH[key[j >= key.length ? j % key.length : j].toUpperCase()];
+
+        if (ALPH.includes(message[i].toUpperCase())) {
+          cipherMessage.push(ALPH[(numOfMsgLetter + numOfKeyLetter) % ALPH.length]);
+          j++;
+        } else {
+          cipherMessage.push(message[i]);
+        }
+      console.log(cipherMessage);
+
+    }
+    return this.isReverced ? cipherMessage.reverse().join('') : cipherMessage.join('');
+  }
+
+  decrypt(message, key) {
+    if ([...arguments].includes(undefined) || arguments.length < 2) {
+      throw new Error ('Incorrect arguments!');
+    }
+
+    const maxLength = message.length;
+    const cipherMessage = [];
+    let j = 0;
+
+   for (let i = 0; i < maxLength; i++) {
+
+      const numOfMsgLetter = numALPH[message[i].toUpperCase()];
+      const numOfKeyLetter = numALPH[key[j >= key.length ? j % key.length : j].toUpperCase()];
+      const diffOfMsgAndKeyLetters = numOfMsgLetter - numOfKeyLetter >= 0 ? numOfMsgLetter - numOfKeyLetter : numOfMsgLetter - numOfKeyLetter + ALPH.length;
+
+      console.log(numOfMsgLetter, numOfKeyLetter);
+
+        if (ALPH.includes(message[i].toUpperCase())) {
+          cipherMessage.push(ALPH[(diffOfMsgAndKeyLetters) % ALPH.length]);
+          j++;
+        } else {
+          cipherMessage.push(message[i]);
+        }
+      console.log(cipherMessage);
+
+    }
+    return this.isReverced ? cipherMessage.reverse().join('') : cipherMessage.join('');
   }
 }
 
