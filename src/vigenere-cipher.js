@@ -48,7 +48,6 @@ class VigenereCipheringMachine {
         } else {
           cipherMessage.push(message[i]);
         }
-      console.log(cipherMessage);
 
     }
     return this.isReverced ? cipherMessage.reverse().join('') : cipherMessage.join('');
@@ -69,16 +68,12 @@ class VigenereCipheringMachine {
       const numOfKeyLetter = numALPH[key[j >= key.length ? j % key.length : j].toUpperCase()];
       const diffOfMsgAndKeyLetters = numOfMsgLetter - numOfKeyLetter >= 0 ? numOfMsgLetter - numOfKeyLetter : numOfMsgLetter - numOfKeyLetter + ALPH.length;
 
-      console.log(numOfMsgLetter, numOfKeyLetter);
-
         if (ALPH.includes(message[i].toUpperCase())) {
           cipherMessage.push(ALPH[(diffOfMsgAndKeyLetters) % ALPH.length]);
           j++;
         } else {
           cipherMessage.push(message[i]);
         }
-      console.log(cipherMessage);
-
     }
     return this.isReverced ? cipherMessage.reverse().join('') : cipherMessage.join('');
   }
