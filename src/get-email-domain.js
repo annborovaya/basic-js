@@ -15,8 +15,6 @@ function getEmailDomain(email) {
   return reg;
 }
 
- getEmailDomain('prettyandsimple@example.com');
-
 module.exports = {
   getEmailDomain
 };
